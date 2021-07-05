@@ -40,4 +40,28 @@
 # width 为了达规定的宽度 必要时填充空格
 # .prec 字符串最大宽度, 或十进制数的小数部分的位数
 
-gawk '{ printf ("Name:%-10sAge:%-5dWeight:%7.2f\n", $1,$2,$3)}' test
+# gawk '{ printf ("Name:%-10sAge:%-5dWeight:%7.2f\n", $1,$2,$3)}' test
+
+# 输出到文件
+# 重定向运算符>与>> 用于将输出重定向到文件 文件名必须用双引号括起来
+# gawk '{ print($1, $3) > ($3 > 100 ? "bigpop" : "smallpop") }' test
+
+#输出到管道
+#print的输出将以管道的方式传递给command
+
+# Canada 3852
+# China 3705
+# USA 3615
+# Brazil 3286
+
+gawk '{ pop[$1]+=$2 }
+END{ for(c in pop) printf("%15-s%6d\n", c, pop[c]) | "sort -nk 2"; close("sort -nk 2") }' test
+
+
+#关闭文件与管道
+#语句close(expression)关闭一个文件或管道，文件或管道由expression指定。
+#expression的字符串值必须与最初用于创建文件或管道的字符串值相同。
+#在同一个程序中，如果你写了一个文件，而待会儿想要读取它，那么就需要调用close。
+#某一时刻，同时处于打开状态的文件或管道数量最大值由实现定义。
+
+close("sort -nk 2")

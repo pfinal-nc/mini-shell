@@ -96,3 +96,80 @@ do
     echo "${arr[$i]}"
     let "i++"
 done
+
+# Break and continue
+echo "Break and continue"
+j=0
+while [[ $j < ${#arr[*]} ]]
+do 
+    if [ $j == 3 ]
+    then
+        echo "Break in ${arr[$j]}"
+        break
+    elif [ $j == 1 ]
+    then 
+        echo "Dump ${arr[$j]}"
+        let "j++"
+        continue
+    else
+        echo "Print ${arr[$j]}"
+    fi
+    let j++
+done
+
+# 分支选择
+
+x=3
+case $x in
+    1) echo 'Case1'
+    ;;
+    2) echo 'Case2'
+    ;;
+    3) echo 'Case3'
+    ;;
+    4) echo 'Case4'
+    ;;
+    *) echo 'Default'
+    ;;
+esac
+
+printf "hello\n" # printf
+
+# 特殊的变量
+# $0  当前脚本的文件名
+# $n  传递给脚本或函数的参数。n 是一个数字,表示第几个参数, 
+# $#  传递给脚本或函数参数个数
+# $*  传递给脚本或函数的所有参数
+# $@  传递给脚本或函数的所有参数.被双引号(" ")包含时, 与 $*稍有不同
+# $?  上个命令的退出状态, 或函数的返回值
+# $$  当前shell进程ID。对于Shell脚本, 就是这些脚本所在的进程ID
+
+echo "File Name: $0"
+echo "First Parameter: $1"
+echo "Second Parameter : $2"
+echo "Quoted Values: $@"
+echo "Quoted Values: $*"
+echo "Total Number of Parameters : $#"
+
+# $* 和 $@的区别
+# $* 和 $@都表示传递给函数或脚本的所有参数, 不被引号(" ") 包含时, 都以 "$1" "$2" .. "$n" 的形式所输出所有参数
+# 但是当他们被双引号(" ")包含时，"$*" 会将所有的参数作为一个整体，以"$1 $2 … $n"的形式输出所有参数；"$@" 会将各个参数分开，以"$1" "$2" … "$n" 的形式输出所有参数。
+
+echo "\$*=" $*
+echo "\"\$*\"=" "$*"
+echo "\"\$@\"=" "$@"
+echo "print each param from \$*"
+for var in $*
+do
+    echo "$var"
+done
+echo "print each param from \$@"
+
+for var in $@
+do
+    echo "$var"
+done
+
+echo "print each param from \"\$*\""
+for var in "$*"
+

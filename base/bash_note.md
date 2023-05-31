@@ -118,3 +118,6 @@ name="bash"
 ${#变量名} 和 echo ${变量名}|wc -L 和 awk
 
 
+### 打印输出
+
+printf "hello\n"
